@@ -1,0 +1,109 @@
+:root {
+  --color-green-dark: #3B5325;
+  --color-green-title: #3C9343;
+  --color-beige: #C2AF3E;
+  --color-green-light: #A6CD3C;
+  --color-text: #6b6b6b;
+  --color-white: #ffffff;
+
+  --font-title: 'Poppins', sans-serif;
+  --font-body: 'Reddit Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  /* Allow scroll so Lenis works, but hide scrollbar visually */
+  overflow-y: scroll; 
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+/* Chrome, Safari, Opera */
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background-color: var(--color-white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  color: var(--dynamic-theme-color, var(--color-green-title));
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  transition: color 0.5s ease 0.5s; /* 0.5s delay */
+}
+
+strong {
+  color: var(--color-beige);
+  font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-body);
+  font-weight: 700;
+  background-color: var(--dynamic-theme-color, var(--color-green-light));
+  color: var(--color-white);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px; /* Slightly rounded */
+  cursor: pointer;
+  transition: background-color 0.5s ease 0.5s, opacity 0.3s ease; /* Bg delay, opacity instant */
+  font-size: 1rem;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Solid sweep animation with defined line */
+.hero-button {
+  background-color: var(--dynamic-theme-color, var(--color-green-title));
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  /* Ensure text remains visible and on top */
+  transition: box-shadow 0.3s ease;
+}
+
+.hero-button:hover {
+  /* box-shadow: 0 0 20px var(--color-green-light); optional glow */
+}
+
+.hero-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: var(--color-green-light);
+  transition: width 0.4s ease-in-out; 
+  z-index: -1;
+}
+
+.hero-button:hover::before {
+  width: 100%;
+}
+
+/* Ensure no other pseudo-elements interfere */
+.hero-button::after {
+  content: none;
+}
