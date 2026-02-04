@@ -85,6 +85,17 @@ const CoverageSection = () => {
         src={iframeSrc}
       />
       
+      {/* Transparent Overlay to block map interaction but allow scroll */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 5, // Above map (0), below card (10)
+        cursor: 'default',
+      }} />
+      
       {/* Interaction Card */}
       <div style={cardStyle}>
         {ZONES.map((zone, index) => (

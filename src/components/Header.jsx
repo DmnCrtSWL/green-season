@@ -33,27 +33,30 @@ const Header = ({ activeSection = 0, onNavigate }) => {
   };
 
   // Renamed sections as requested
+  // Renamed sections as requested
   const menuItems = [
     { name: 'Home', index: 0 },
     { name: 'About Us', index: 1 },
     { name: 'Services', index: 2 },
-    { name: 'Zones', index: 3 }, // Added Coverage Zone link 
-    { name: 'Quote', index: 4 },
-    { name: 'Contact', index: 5 },
+    { name: 'Quote', index: 3 }, // Quote moved up
+    { name: 'Contact', index: 4 }, // Contact is Footer
+    { name: 'Zones', index: 5 }, // Zones moved to end
   ];
 
   // Brand Colors Cycle
   // 0: Green Title (Standard)
   // 1: Green Dark (Depth)
   // 2: Green Light (Vibrancy)
-  // 3: Beige (Contrast)
-  // 4: Green Title (Return to Standard)
+  // 3: Green Title (Quote)
+  // 4: Black (Footer - Logo likely invert or white)
+  // 5: Beige (Zones)
   const brandColors = [
     'var(--color-green-title)',
     'var(--color-green-dark)',
     'var(--color-green-light)',
-    'var(--color-beige)',
     'var(--color-green-title)',
+    '#ffffff', // Logo should be white on black footer
+    'var(--color-green-title)', // Logo on Beige (Zones) - Standard Green
   ];
 
   const currentLogoColor = brandColors[activeSection] || brandColors[0];

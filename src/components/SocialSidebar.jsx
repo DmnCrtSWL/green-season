@@ -142,8 +142,8 @@ const SocialSidebar = ({ activeSection = 0 }) => {
     boxShadow: '0 4px 15px rgba(0,0,0,0.15)',
     transition: 'background-color 0.5s ease, opacity 0.5s ease', 
     willChange: 'transform',
-    opacity: activeSection === 5 ? 0 : 1, // Hide on Footer
-    pointerEvents: activeSection === 5 ? 'none' : 'auto', // Prevent clicks when hidden
+    opacity: 1, // Always visible
+    pointerEvents: 'auto', // Always interactive
   };
 
   const linkStyle = {

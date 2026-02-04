@@ -67,6 +67,7 @@ const InfoSection = ({ title, text, image, reversed, backgroundColor = 'var(--co
   });
 
   const imageContainerStyle = isMobile ? {
+    display: 'none', // Hide image on mobile per user request
     width: '100%',
     height: '100vh',
     order: 2, // Second on mobile

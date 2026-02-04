@@ -6,7 +6,7 @@ const servicesData = [
     title: 'Lawn Care',
     image: 'https://images.unsplash.com/photo-1558904541-efa843a96f01?q=80&w=2669&auto=format&fit=crop', 
     description: 'Everything your lawn needs to stay healthy and clean.',
-    items: ['Lawn Mowing and Trimming', 'Full Service Lawn Care', 'Mulching', 'Weeding'],
+    items: ['Mulching', 'Weeding'],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 12h20" />
@@ -21,7 +21,7 @@ const servicesData = [
     title: 'Landscaping',
     image: 'https://images.unsplash.com/photo-1621946002720-3023e3870845?q=80&w=2670&auto=format&fit=crop',
     description: 'Design, installation and transformation of outdoor spaces.',
-    items: ['Outdoor Landscaping and Design', 'Sod Installation', 'Artificial Turf Installation', 'Land Leveling and Grading', 'Gardening'],
+    items: ['Sod Installation', 'Artificial Turf Installation', 'Land Leveling and Grading', 'Gardening'],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M8 18v-5a4 4 0 1 1 8 0v5" />
@@ -33,24 +33,10 @@ const servicesData = [
   },
   {
     id: 2,
-    title: 'Irrigation',
-    image: 'https://images.unsplash.com/photo-1599690925058-90e1a0b555e6?q=80&w=2669&auto=format&fit=crop',
-    description: 'Efficient watering solutions for your property.',
-    items: ['Sprinkler and Irrigation System Installation', 'Sprinkler and Irrigation System Repair and Maintenance'],
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2.69l5.74 9.94A6 6 0 1 1 6.26 12.63L12 2.69z" />
-        <line x1="12" y1="14" x2="12" y2="17" />
-        <line x1="12" y1="17" x2="12.01" y2="17" />
-      </svg>
-    )
-  },
-  {
-    id: 3,
     title: 'Hardscape',
     image: 'https://images.unsplash.com/photo-1589133469854-3e9a4c844111?q=80&w=2670&auto=format&fit=crop',
     description: 'Durable outdoor structures built to last.',
-    items: ['Concrete Installation', 'Brick or Stone Repair', 'Patio Remodel or Addition', 'Fence Painting'],
+    items: ['Concrete Installation', 'Brick or Stone Repair', 'Patio Remodel or Addition'],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="2" width="20" height="20" rx="2" ry="2" />
@@ -60,29 +46,14 @@ const servicesData = [
     )
   },
   {
-    id: 4,
+    id: 3,
     title: 'Seasonal',
     image: 'https://images.unsplash.com/photo-1558904541-efa843a96f01?q=80&w=2669&auto=format&fit=crop',
     description: 'Year-round services for every season.',
-    items: ['Gutter Cleaning and Maintenance', 'Pressure Washing', 'Holiday Lighting Installation and Removal', 'Snow Plowing'],
+    items: ['Pressure Washing', 'Holiday Lighting Installation and Removal', 'Winter Decoration'],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-      </svg>
-    )
-  },
-  {
-    id: 5,
-    title: 'Cleanup',
-    image: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?q=80&w=2669&auto=format&fit=crop',
-    description: 'Fast and responsible cleanup services.',
-    items: ['Junk Removal', 'Tree Trimming and Removal', 'Shrub Trimming and Removal', 'Tree Planting'],
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="3 6 5 6 21 6" />
-        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-        <line x1="10" y1="11" x2="10" y2="17" />
-        <line x1="14" y1="11" x2="14" y2="17" />
       </svg>
     )
   },
@@ -91,6 +62,7 @@ const servicesData = [
 const ServicesSection = () => {
   const [activeServiceId, setActiveServiceId] = useState(0);
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+  const [showModal, setShowModal] = useState(false); // Mobile Modal State
 
   React.useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -98,22 +70,59 @@ const ServicesSection = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-
-
   const containerStyle = {
     display: 'flex',
     width: '100%',
-    height: '100vh',
-    overflow: 'hidden',
-    paddingTop: isMobile ? '60px' : '80px', // Prevent Header Overlap
+    minHeight: '100vh', 
+    overflow: isMobile ? 'visible' : 'hidden', 
+    paddingTop: isMobile ? '0' : '80px', 
     boxSizing: 'border-box',
+    position: 'relative', 
+    flexDirection: isMobile ? 'column' : 'row',
   };
 
   const imageContainerStyle = {
-    width: '60%',
-    height: '100%',
-    position: 'relative',
-    backgroundColor: '#000', // fallback
+    width: isMobile ? '100%' : '60%',
+    height: isMobile ? '100vh' : '100%', // Full screen height on mobile
+    position: isMobile ? 'relative' : 'relative', 
+    top: 0,
+    left: 0,
+    backgroundColor: '#000', 
+    zIndex: 0,
+  };
+
+  const menuContainerStyle = {
+    width: isMobile ? '100%' : '40%',
+    height: isMobile ? '100vh' : '100%', // Full screen on mobile
+    minHeight: isMobile ? '100vh' : '100%', 
+    display: isMobile ? 'grid' : 'flex', 
+    gridTemplateColumns: isMobile ? '1fr 1fr' : 'none',
+    gap: isMobile ? '20px' : '0',
+    flexDirection: 'column',
+    position: isMobile ? 'relative' : 'static',
+    zIndex: 1,
+    backgroundColor: isMobile ? '#ffffff' : 'var(--color-white)', 
+    padding: isMobile ? '20px' : '0', 
+    justifyContent: isMobile ? 'center' : 'flex-start',
+    alignItems: isMobile ? 'center' : 'stretch', // Vertically center items
+    alignContent: isMobile ? 'center' : 'normal', // Center the grid content itself
+  };
+
+  const mobileTitleStyle = {
+    position: 'absolute',
+    right: '30px',
+    top: '50%',
+    transform: 'translateY(-50%) rotate(-90deg)',
+    transformOrigin: 'center center',
+    fontSize: '3.5rem',
+    fontWeight: '700',
+    fontFamily: 'var(--font-title)',
+    fontStyle: 'italic',
+    whiteSpace: 'nowrap',
+    zIndex: 10,
+    pointerEvents: 'none', 
+    textAlign: 'center',
+    display: isMobile ? 'block' : 'none',
   };
 
   const imageStyle = {
@@ -129,15 +138,14 @@ const ServicesSection = () => {
     left: 0,
     width: '100%',
     height: '100%',
-    // Gradient for elegance: Clear on left, Dark on right where text is
     background: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%)',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'flex-end', // Align content to right
-    textAlign: 'right',     // Align text to right
+    alignItems: 'flex-end', 
+    textAlign: 'right',     
     padding: '4rem',
-    paddingRight: '6rem',   // Extra padding from the menu edge
+    paddingRight: '6rem',   
     boxSizing: 'border-box',
     color: 'var(--color-white)',
     zIndex: 10,
@@ -165,7 +173,7 @@ const ServicesSection = () => {
     padding: 0,
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-end', // Ensure items align right
+    alignItems: 'flex-end', 
   };
 
   const overlayItemStyle = {
@@ -174,7 +182,7 @@ const ServicesSection = () => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    flexDirection: 'row-reverse', // Icon on the right
+    flexDirection: 'row-reverse', 
     gap: '10px',
   };
 
@@ -184,15 +192,9 @@ const ServicesSection = () => {
     </svg>
   );
 
-  const menuContainerStyle = {
-    width: '40%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  };
-
+  // Desktop Button Style
   const buttonStyle = (isActive) => ({
-    flex: 1, // Equal height for all 6 rows
+    flex: 1, 
     border: 'none',
     backgroundColor: isActive ? 'var(--color-green-title)' : 'var(--color-white)',
     color: isActive ? 'var(--color-white)' : 'var(--color-green-title)',
@@ -204,96 +206,238 @@ const ServicesSection = () => {
     transition: 'all 0.3s ease',
     outline: 'none',
     borderBottom: '1px solid rgba(0,0,0,0.05)',
-    borderRadius: '0', // Square buttons (explicit)
   });
 
+  // Mobile Grid Item Style
+  const mobileGridItemStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px',
+    backgroundColor: '#fff',
+    borderRadius: '16px',
+    boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
+    border: '1px solid #f0f0f0',
+    cursor: 'pointer',
+    textAlign: 'center',
+  };
+
   const iconContainerStyle = {
-    width: '50px', // Slightly larger icon area
+    width: '50px', 
     height: '50px',
-    marginRight: '25px',
+    marginRight: isMobile ? '0' : '25px',
+    marginBottom: isMobile ? '10px' : '0',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    color: isMobile ? 'var(--color-green-title)' : 'inherit', // Always green on mobile grid
   };
 
   const textStyle = {
-    fontSize: '2rem', // Larger text (was 1.5rem)
-    fontWeight: '700',
-    fontFamily: 'var(--font-title)',
-    letterSpacing: '0.05em',
-    textTransform: 'uppercase', // Often looks better for "industrial" look, user didn't explicitly ask but "robust" implies it. Let's stick to larger first.
+    fontSize: isMobile ? '0.9rem' : '2rem', // Discrete size on mobile
+    fontWeight: isMobile ? '600' : '700',
+    fontFamily: isMobile ? 'var(--font-body)' : 'var(--font-title)', // Simple font for mobile text per request "discreto"
+    letterSpacing: isMobile ? '0' : '0.05em',
+    textTransform: isMobile ? 'none' : 'uppercase', 
+    color: '#333',
+  };
+
+  // Helper to handle click
+  const handleServiceClick = (id) => {
+    setActiveServiceId(id);
+    if (isMobile) {
+      setShowModal(true);
+    }
   };
 
   return (
     <section style={containerStyle}>
-      {/* LEFT: IMAGE */}
-      <div style={imageContainerStyle}>
-        <style>
-          {`
-            @keyframes fadeIn {
-              from { opacity: 0; transform: translateY(10px); }
-              to { opacity: 1; transform: translateY(0); }
-            }
-          `}
-        </style>
-        {servicesData.map((service) => (
-           <img 
-             key={service.id}
-             src={service.image} 
-             alt={service.title} 
-             style={{
-               ...imageStyle,
-               position: 'absolute',
-               top: 0,
-               left: 0,
-               opacity: service.id === activeServiceId ? 1 : 0,
-               zIndex: service.id === activeServiceId ? 1 : 0,
-             }} 
-           />
-        ))}
-        {/* Overlay Content */}
-        {servicesData.map((service) => (
-           <div 
-             key={service.id + '-overlay'}
-             style={{
-               ...overlayStyle,
-               opacity: service.id === activeServiceId ? 1 : 0,
-               visibility: service.id === activeServiceId ? 'visible' : 'hidden',
-               transition: 'opacity 0.5s ease',
-               animation: service.id === activeServiceId ? 'fadeIn 0.5s forwards' : 'none',
-             }}
-           >
-              <h2 style={overlayTitleStyle}>{service.title}</h2>
-              <p style={overlayDescStyle}>{service.description}</p>
-              <ul style={overlayListStyle}>
-                {service.items.map((item, i) => (
-                  <li key={i} style={overlayItemStyle}>
-                    {checkIcon}
-                    {item}
-                  </li>
+      
+      {/* MOBILE MODAL */}
+      {showModal && isMobile && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0,0,0,0.8)',
+          zIndex: 1000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px',
+          boxSizing: 'border-box',
+          animation: 'fadeIn 0.3s ease'
+        }} onClick={() => setShowModal(false)}>
+           <div style={{
+             backgroundColor: 'white',
+             borderRadius: '20px',
+             padding: '30px',
+             maxWidth: '400px',
+             width: '100%',
+             position: 'relative',
+             textAlign: 'center'
+           }} onClick={e => e.stopPropagation()}>
+              <button 
+                onClick={() => setShowModal(false)}
+                style={{
+                  position: 'absolute', top: '15px', right: '15px', 
+                  border: 'none', background: 'none', fontSize: '1.5rem', cursor: 'pointer'
+                }}
+              >✕</button>
+              
+              <div style={{color: 'var(--color-green-title)', marginBottom: '15px', width: '60px', height: '60px', margin: '0 auto 15px auto'}}>
+                {React.cloneElement(servicesData[activeServiceId].icon, { style: { width: '100%', height: '100%' } })}
+              </div>
+              
+              <h3 style={{fontFamily: 'var(--font-title)', fontSize: '2rem', marginBottom: '10px', color: '#333'}}>
+                {servicesData[activeServiceId].title}
+              </h3>
+              <p style={{color: '#666', lineHeight: '1.6', marginBottom: '20px'}}>
+                {servicesData[activeServiceId].description}
+              </p>
+              
+              <div style={{textAlign: 'left', backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '10px'}}>
+                {servicesData[activeServiceId].items.map((item, i) => (
+                  <div key={i} style={{display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px'}}>
+                     <span style={{color: 'var(--color-green-light)', fontWeight: 'bold'}}>•</span>
+                     <span>{item}</span>
+                  </div>
                 ))}
-              </ul>
+              </div>
            </div>
-        ))}
+        </div>
+      )}
+
+      {/* LEFT (Desktop) / TOP (Mobile): IMAGE & TITLE */}
+      <div style={imageContainerStyle}>
+         {/* MOBILE OVERLAY: Darken bg for text readability */}
+         {isMobile && (
+           <div style={{
+             position: 'absolute',
+             top: 0,
+             left: 0,
+             width: '100%',
+             height: '100%',
+             backgroundColor: 'rgba(0,0,0,0.3)', 
+             zIndex: 5,
+             pointerEvents: 'none'
+           }} />
+         )}
+
+         {/* MOBILE TITLE: Inside Image Container */}
+         {isMobile && (
+            <div style={mobileTitleStyle}>
+               <span style={{ color: '#ffffff' }}>Additional</span> <span style={{ color: '#a6cd3c' }}>Services</span>
+            </div>
+         )}
+         
+         <style>
+           {`
+             @keyframes fadeIn {
+               from { opacity: 0; transform: translateY(10px); }
+               to { opacity: 1; transform: translateY(0); }
+             }
+           `}
+         </style>
+         {servicesData.map((service) => (
+            <img 
+              key={service.id}
+              src={service.image} 
+              alt={service.title} 
+              style={{
+                ...imageStyle,
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                opacity: service.id === activeServiceId ? 1 : 0,
+                zIndex: service.id === activeServiceId ? 1 : 0,
+              }} 
+            />
+         ))}
+         {/* Overlay Content (Hidden on Mobile) */}
+         {!isMobile && servicesData.map((service) => (
+            <div 
+              key={service.id + '-overlay'}
+              style={{
+                ...overlayStyle,
+                opacity: service.id === activeServiceId ? 1 : 0,
+                visibility: service.id === activeServiceId ? 'visible' : 'hidden',
+                transition: 'opacity 0.5s ease',
+                animation: service.id === activeServiceId ? 'fadeIn 0.5s forwards' : 'none',
+              }}
+            >
+               <h2 style={overlayTitleStyle}>{service.title}</h2>
+               <p style={overlayDescStyle}>{service.description}</p>
+               <ul style={overlayListStyle}>
+                 {service.items.map((item, i) => (
+                   <li key={i} style={overlayItemStyle}>
+                     {checkIcon}
+                     {item}
+                   </li>
+                 ))}
+               </ul>
+            </div>
+         ))}
       </div>
 
-      {/* RIGHT: MENU */}
+      {/* RIGHT (Desktop) / BOTTOM (Mobile): MENU */}
       <div style={menuContainerStyle}>
+        
+        {/* Desktop Title (Hidden on Mobile) */}
+        {!isMobile && (
+          <div style={{
+            padding: '2rem 3rem',
+            backgroundColor: 'var(--color-white)',
+            fontFamily: 'var(--font-title)',
+            fontStyle: 'italic',
+            fontSize: '2.5rem',
+            fontWeight: '700',
+            color: 'var(--color-green-light)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+          }}>
+            <span style={{ color: '#ffffff', WebkitTextStroke: '1px #0e0e0e' }}>Additional</span> Services
+          </div>
+        )}
+
+        {/* Buttons / Grid Items */}
         {servicesData.map((service) => (
-          <button
-            key={service.id}
-            style={buttonStyle(service.id === activeServiceId)}
-            onClick={() => setActiveServiceId(service.id)}
-            onMouseEnter={() => setActiveServiceId(service.id)} // Optional: Hover interaction
-          >
-            <div style={iconContainerStyle}>
-               {React.cloneElement(service.icon, { 
-                 style: { width: '100%', height: '100%' } 
-               })}
+          isMobile ? (
+            // Mobile: Grid Item
+            <div
+               key={service.id}
+               style={mobileGridItemStyle}
+               onClick={() => handleServiceClick(service.id)}
+            >
+               <div style={iconContainerStyle}>
+                  {React.cloneElement(service.icon, { 
+                    style: { width: '100%', height: '100%' } 
+                  })}
+               </div>
+               <span style={textStyle}>{service.title}</span>
             </div>
-            <span style={textStyle}>{service.title}</span>
-          </button>
+          ) : (
+            // Desktop: Side Menu Button
+            <button
+              key={service.id}
+              style={buttonStyle(service.id === activeServiceId)}
+              onClick={() => handleServiceClick(service.id)}
+              onMouseEnter={() => setActiveServiceId(service.id)}
+            >
+              <div style={iconContainerStyle}>
+                 {React.cloneElement(service.icon, { 
+                   style: { width: '100%', height: '100%' } 
+                 })}
+              </div>
+              <span style={textStyle}>{service.title}</span>
+            </button>
+          )
         ))}
+        
       </div>
     </section>
   );
