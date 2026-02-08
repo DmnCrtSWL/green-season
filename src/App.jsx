@@ -67,6 +67,7 @@ function App() {
           // Mobile Order
           <>
             <InfoSection
+              id="about"
               title="About Us"
               text={`<strong>Green Season Turf & Landscaping LLC</strong> is an independent general contractor company based in the <strong>North Chicagoland area</strong>.
               
@@ -76,14 +77,15 @@ function App() {
               image="https://images.unsplash.com/photo-1558904541-efa843a96f01?q=80&w=2669&auto=format&fit=crop"
               variant="overlay"
             />
-            <ServicesSection />
-            <QuoteCalculator />
-            <FooterSection />
+            <ServicesSection id="services" />
+            <QuoteCalculator id="quote" />
+            <FooterSection id="contact" />
           </>
         ) : (
           // Desktop Order
           <>
             <InfoSection
+              id="about"
               title="About Us"
               text={`<strong>Green Season Turf & Landscaping LLC</strong> is an independent general contractor company based in the <strong>North Chicagoland area</strong>.
               
@@ -93,9 +95,9 @@ function App() {
               image="https://images.unsplash.com/photo-1558904541-efa843a96f01?q=80&w=2669&auto=format&fit=crop"
               variant="overlay"
             />
-            <ServicesSection />
-            <QuoteCalculator />
-            <FooterSection />
+            <ServicesSection id="services" />
+            <QuoteCalculator id="quote" />
+            <FooterSection id="contact" />
           </>
         )}
       </main>

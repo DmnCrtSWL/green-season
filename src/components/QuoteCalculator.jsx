@@ -24,7 +24,7 @@ const Progress = ({ step }) => (
   </div>
 );
 
-const QuoteCalculator = () => {
+const QuoteCalculator = ({ id }) => {
   // Step 1: Zip
   // Step 2: Measurements & Photos
   // Step 3: Process Knowledge
@@ -179,7 +179,7 @@ const QuoteCalculator = () => {
   });
 
   return (
-    <section style={sectionStyle}>
+    <section id={id} style={sectionStyle}>
       <div style={contentContainer}>
         {step < 8 && <Progress step={step} />}
 

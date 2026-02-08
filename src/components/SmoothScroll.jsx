@@ -28,7 +28,31 @@ const SmoothScroll = ({ onSectionChange, targetSection, isMobile }) => {
     requestAnimationFrame(raf);
 
     // 3. Scroll To Logic (API)
-    const scrollToSection = (index) => {
+    const scrollToSection = (target) => {
+      // Handle ID/Selector string
+      if (typeof target === 'string') {
+        isAnimating.current = true;
+        if (target === 'top') {
+          lenis.scrollTo(0, {
+            lock: true,
+            duration: 1.2,
+            onComplete: () => isAnimating.current = false
+          });
+        } else {
+          lenis.scrollTo(target, { // e.g. '#about'
+            offset: 0,
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            lock: true,
+            onComplete: () => isAnimating.current = false
+          });
+        }
+        return;
+      }
+
+      // Handle Numeric Index
+      let index = Number(target);
+      if (isNaN(index)) return; // Safety check
       if (index < 0) index = 0;
       if (index >= TOTAL_SECTIONS) index = TOTAL_SECTIONS - 1;
 
@@ -38,9 +62,9 @@ const SmoothScroll = ({ onSectionChange, targetSection, isMobile }) => {
       }
 
       isAnimating.current = true;
-      const target = index * window.innerHeight;
+      const scrollPos = index * window.innerHeight;
 
-      lenis.scrollTo(target, {
+      lenis.scrollTo(scrollPos, {
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         lock: true,

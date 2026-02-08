@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FooterSection = () => {
+const FooterSection = ({ id }) => {
   const sectionStyle = {
     width: '100%',
     minHeight: '100vh',
@@ -126,7 +126,7 @@ const FooterSection = () => {
   };
 
   return (
-    <footer style={sectionStyle} id="footer">
+    <footer style={sectionStyle} id={id}>
       <div style={containerStyle}>
 
         <div style={contentGridStyle} className="footer-grid">
@@ -193,7 +193,7 @@ const FooterSection = () => {
         {/* COPYRIGHT */}
         <div style={copyrightRowStyle}>
           <span>© 2026 Green Season Turf & Landscaping LLC. All rights reserved.</span>
-          <div style={{ display: 'flex', gap: '20px' }}>
+          <div style={{ display: 'flex', gap: '20px' }} className="footer-links">
             <a href="#" style={{ ...linkStyle, borderBottom: 'none' }}>Privacy Policy</a>
             <a href="#" style={{ ...linkStyle, borderBottom: 'none' }}>Terms of Service</a>
           </div>
@@ -216,6 +216,9 @@ const FooterSection = () => {
                padding-top: 60px !important;
                height: auto !important; 
                min-height: 100vh;
+             }
+             .footer-links {
+               margin-bottom: 35px !important;
              }
           }
         `}

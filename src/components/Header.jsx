@@ -2,6 +2,7 @@ import React from 'react';
 
 const Header = ({ activeSection = 0, onNavigate }) => {
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -35,11 +36,11 @@ const Header = ({ activeSection = 0, onNavigate }) => {
   // Renamed sections as requested
   // Renamed sections as requested
   const menuItems = [
-    { name: 'Home', index: 0 },
-    { name: 'About Us', index: 1 },
-    { name: 'Services', index: 2 },
-    { name: 'Quote', index: 3 }, // Quote moved up
-    { name: 'Contact', index: 4 }, // Contact is Footer
+    { name: 'Home', index: 0, target: 'top' },
+    { name: 'About Us', index: 1, target: '#about' },
+    { name: 'Services', index: 2, target: '#services' },
+    { name: 'Quote', index: 3, target: '#quote' }, // Quote moved up
+    { name: 'Contact', index: 4, target: '#contact' }, // Contact is Footer
   ];
 
   // Brand Colors Cycle
@@ -123,11 +124,73 @@ const Header = ({ activeSection = 0, onNavigate }) => {
       </a>
 
       {isMobile ? (
-        <div style={hamburgerStyle} onClick={() => console.log('Toggle Menu')}>
-          <div style={burgerLineStyle} />
-          <div style={burgerLineStyle} />
-          <div style={burgerLineStyle} />
-        </div>
+        <>
+          {/* Hamburger Icon */}
+          <div style={hamburgerStyle} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <div style={{ ...burgerLineStyle, transform: isMenuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none' }} />
+            <div style={{ ...burgerLineStyle, opacity: isMenuOpen ? 0 : 1 }} />
+            <div style={{ ...burgerLineStyle, transform: isMenuOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'none' }} />
+          </div>
+
+          {/* Backdrop */}
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100vh',
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              zIndex: 1001, // Below drawer, above header content
+              opacity: isMenuOpen ? 1 : 0,
+              pointerEvents: isMenuOpen ? 'auto' : 'none',
+              transition: 'opacity 0.3s ease',
+            }}
+            onClick={() => setIsMenuOpen(false)}
+          />
+
+          {/* Side Drawer */}
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              right: 0,
+              width: '75%',
+              maxWidth: '300px',
+              height: '100vh',
+              backgroundColor: '#ffffff',
+              zIndex: 1002, // Above everything
+              transform: isMenuOpen ? 'translateX(0)' : 'translateX(100%)',
+              transition: 'transform 0.3s ease-in-out',
+              boxShadow: '-5px 0 15px rgba(0,0,0,0.1)',
+              display: 'flex',
+              flexDirection: 'column',
+              padding: '80px 20px 20px 20px', // Top padding for header space
+              boxSizing: 'border-box',
+            }}
+          >
+            {menuItems.map((item) => (
+              <div
+                key={item.name}
+                style={{
+                  padding: '20px 0',
+                  borderBottom: '1px solid #f0f0f0',
+                  fontFamily: 'var(--font-title)',
+                  fontSize: '1.2rem',
+                  fontWeight: '600',
+                  color: 'var(--color-green-title)',
+                  cursor: 'pointer',
+                }}
+                onClick={() => {
+                  if (onNavigate) onNavigate(item.target || item.index);
+                  setIsMenuOpen(false);
+                }}
+              >
+                {item.name}
+              </div>
+            ))}
+          </div>
+        </>
       ) : (
         <nav style={navStyle}>
           {menuItems.map((item, i) => {
@@ -160,7 +223,7 @@ const Header = ({ activeSection = 0, onNavigate }) => {
             const handleClick = (e) => {
               e.preventDefault(); // Good practice
               if (onNavigate) {
-                onNavigate(item.index);
+                onNavigate(item.target || item.index);
               }
             };
 

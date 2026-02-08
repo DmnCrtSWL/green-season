@@ -1,7 +1,7 @@
 import React from 'react';
 import ParallaxText from './ParallaxText';
 
-const InfoSection = ({ title, text, image, reversed, backgroundColor = 'var(--color-white)', variant = 'split' }) => {
+const InfoSection = ({ id, title, text, image, reversed, backgroundColor = 'var(--color-white)', variant = 'split' }) => {
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -113,7 +113,7 @@ const InfoSection = ({ title, text, image, reversed, backgroundColor = 'var(--co
   };
 
   return (
-    <section style={sectionStyle}>
+    <section id={id} style={sectionStyle}>
       <div style={textContainerStyle} className="info-section-content">
         <style>
           {`

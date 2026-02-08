@@ -59,7 +59,7 @@ const servicesData = [
   },
 ];
 
-const ServicesSection = () => {
+const ServicesSection = ({ id }) => {
   const [activeServiceId, setActiveServiceId] = useState(0);
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
   const [showModal, setShowModal] = useState(false); // Mobile Modal State
@@ -74,7 +74,7 @@ const ServicesSection = () => {
     display: 'flex',
     width: '100%',
     height: isMobile ? 'calc(100vh - 60px)' : 'calc(100vh - 80px)', // Subtract header height
-    minHeight: isMobile ? 'calc(100vh - 60px)' : 'calc(100vh - 80px)',
+    minHeight: isMobile ? 'calc(100vh - 60px)' : 'calc(100vh - 80px)', // Enforce Min Height for proper flex behavior
     marginTop: isMobile ? '60px' : '80px', // Push down by header height
     overflow: 'hidden',
     paddingTop: 0,
@@ -256,7 +256,7 @@ const ServicesSection = () => {
   };
 
   return (
-    <section style={containerStyle}>
+    <section id={id} style={containerStyle}>
 
       {/* MOBILE MODAL */}
       {showModal && isMobile && (
