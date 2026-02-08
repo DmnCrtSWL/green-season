@@ -64,16 +64,16 @@ const Hero = ({ backgroundColor = "var(--color-white)" }) => {
 
   const sliderImages = [
     {
-      url: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=2664&auto=format&fit=crop",
-      title: "NASHVILLE",
+      url: "/01.jpeg",
+      title: "",
     },
     {
-      url: "https://images.unsplash.com/photo-1598902108854-10e335adac99?q=80&w=2669&auto=format&fit=crop",
-      title: "DENVER",
+      url: "/02.jpeg",
+      title: "",
     },
     {
-      url: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?q=80&w=2669&auto=format&fit=crop",
-      title: "AUSTIN",
+      url: "/03.jpeg",
+      title: "",
     },
   ];
 

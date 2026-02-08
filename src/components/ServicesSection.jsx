@@ -4,7 +4,7 @@ const servicesData = [
   {
     id: 0,
     title: 'Lawn Care',
-    image: 'https://images.unsplash.com/photo-1558904541-efa843a96f01?q=80&w=2669&auto=format&fit=crop',
+    image: '/additional01.jpeg',
     description: 'Everything your lawn needs to stay healthy and clean.',
     items: ['Mulching', 'Weeding'],
     icon: (
@@ -19,7 +19,7 @@ const servicesData = [
   {
     id: 1,
     title: 'Landscaping',
-    image: 'https://images.unsplash.com/photo-1621946002720-3023e3870845?q=80&w=2670&auto=format&fit=crop',
+    image: '/additional02.jpeg',
     description: 'Design, installation and transformation of outdoor spaces.',
     items: ['Sod Installation', 'Artificial Turf Installation', 'Land Leveling and Grading', 'Gardening'],
     icon: (
@@ -34,7 +34,7 @@ const servicesData = [
   {
     id: 2,
     title: 'Hardscape',
-    image: 'https://images.unsplash.com/photo-1589133469854-3e9a4c844111?q=80&w=2670&auto=format&fit=crop',
+    image: '/additional03.jpeg',
     description: 'Durable outdoor structures built to last.',
     items: ['Concrete Installation', 'Brick or Stone Repair', 'Patio Remodel or Addition'],
     icon: (
@@ -48,7 +48,7 @@ const servicesData = [
   {
     id: 3,
     title: 'Seasonal',
-    image: 'https://images.unsplash.com/photo-1558904541-efa843a96f01?q=80&w=2669&auto=format&fit=crop',
+    image: '/additional04.jpeg',
     description: 'Year-round services for every season.',
     items: ['Pressure Washing', 'Holiday Lighting Installation and Removal', 'Winter Decoration'],
     icon: (

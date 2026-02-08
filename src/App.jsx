@@ -74,7 +74,7 @@ function App() {
               <strong>Founded in 2009</strong>, we bring <strong>over 15 years of experience</strong> and knowledge in turf and landscaping services.
               
               Our commitment to <strong>quality and customer satisfaction</strong> has allowed us to build <strong>long-lasting relationships</strong> and a strong reputation in the area.`}
-              image="https://images.unsplash.com/photo-1558904541-efa843a96f01?q=80&w=2669&auto=format&fit=crop"
+              image="/about-us-bg.jpeg"
               variant="overlay"
             />
             <ServicesSection id="services" />
@@ -92,7 +92,7 @@ function App() {
               <strong>Founded in 2009</strong>, we bring <strong>over 15 years of experience</strong> and knowledge in turf and landscaping services.
               
               Our commitment to <strong>quality and customer satisfaction</strong> has allowed us to build <strong>long-lasting relationships</strong> and a strong reputation in the area.`}
-              image="https://images.unsplash.com/photo-1558904541-efa843a96f01?q=80&w=2669&auto=format&fit=crop"
+              image="/about-us-bg.jpeg"
               variant="overlay"
             />
             <ServicesSection id="services" />
