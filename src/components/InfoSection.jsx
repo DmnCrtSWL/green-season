@@ -16,7 +16,7 @@ const InfoSection = ({ title, text, image, reversed, backgroundColor = 'var(--co
     position: 'relative',
     width: '100%',
     // Mobile: Auto height (to stack 2x 100vh). Desktop: 100vh fixed.
-    height: isMobile ? 'auto' : '100vh', 
+    height: isMobile ? 'auto' : '100vh',
     display: 'flex',
     // Mobile: Column. Desktop: Row (or managed by variant).
     flexDirection: isMobile ? 'column' : (reversed ? 'row-reverse' : 'row'),
@@ -44,25 +44,25 @@ const InfoSection = ({ title, text, image, reversed, backgroundColor = 'var(--co
     zIndex: 0, // Lower z-index so FloatingLeaves (z=1) show on top
   } : (variant === 'overlay' ? {
     width: '40%',
-    height: '100%', 
+    height: '100%',
     position: 'relative',
     zIndex: 10,
     backgroundColor: '#ffffff',
     padding: '4rem',
-    boxShadow: '0 0 40px rgba(0,0,0,0.2)', 
-    borderRadius: '0', 
+    boxShadow: '0 0 40px rgba(0,0,0,0.2)',
+    borderRadius: '0',
     textAlign: 'center',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
   } : {
     width: '40%',
     flex: 'none',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    padding: '30vh 5% 0 5%', 
+    padding: '30vh 5% 0 5%',
     boxSizing: 'border-box',
   });
 
@@ -114,14 +114,21 @@ const InfoSection = ({ title, text, image, reversed, backgroundColor = 'var(--co
 
   return (
     <section style={sectionStyle}>
-      <div style={textContainerStyle}>
+      <div style={textContainerStyle} className="info-section-content">
+        <style>
+          {`
+            .info-section-content strong {
+              color: var(--color-green-title) !important;
+            }
+          `}
+        </style>
         {/* Helper ParallaxText wrapper. 
             Note: Global parallax might need offset adjustment per section, 
             but for "accompanying scroll", a constant subtle move is often enough. 
             Let's try a small speed factor. */}
         <ParallaxText speed={0.1}>
           <h2 style={titleStyle}>{title}</h2>
-          <p style={textStyle} dangerouslySetInnerHTML={{ __html: text }}></p> 
+          <p style={textStyle} dangerouslySetInnerHTML={{ __html: text }}></p>
         </ParallaxText>
       </div>
       <div style={imageContainerStyle}>

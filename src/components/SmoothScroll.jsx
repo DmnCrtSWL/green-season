@@ -6,18 +6,18 @@ const SmoothScroll = ({ onSectionChange, targetSection, isMobile }) => {
   const isAnimating = useRef(false);
   const currentSection = useRef(0);
   const lastWheelTime = useRef(0);
-  const scrollToRef = useRef(null); 
+  const scrollToRef = useRef(null);
 
-  const TOTAL_SECTIONS = 6; 
+  const TOTAL_SECTIONS = 5;
 
   useEffect(() => {
     // 1. Initialize Lenis (Keep standard behavior)
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       smooth: !isMobile, // Disable smooth lenis on mobile if preferred, or keep true. Usually native is best on mobile.
-      smoothTouch: false, 
+      smoothTouch: false,
     });
     lenisRef.current = lenis;
 
@@ -33,17 +33,17 @@ const SmoothScroll = ({ onSectionChange, targetSection, isMobile }) => {
       if (index >= TOTAL_SECTIONS) index = TOTAL_SECTIONS - 1;
 
       if (currentSection.current !== index) {
-          currentSection.current = index;
-          if (onSectionChange) onSectionChange(index);
+        currentSection.current = index;
+        if (onSectionChange) onSectionChange(index);
       }
-      
+
       isAnimating.current = true;
       const target = index * window.innerHeight;
 
       lenis.scrollTo(target, {
         duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-        lock: true, 
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        lock: true,
         onComplete: () => {
           isAnimating.current = false;
         }
@@ -54,55 +54,55 @@ const SmoothScroll = ({ onSectionChange, targetSection, isMobile }) => {
 
     // 4. Event Handlers (Snap Logic) - DESKTOP ONLY
     if (!isMobile) {
-        const handleWheel = (e) => {
+      const handleWheel = (e) => {
+        e.preventDefault();
+        if (isAnimating.current) return;
+
+        const now = Date.now();
+        if (now - lastWheelTime.current < 50) return;
+        lastWheelTime.current = now;
+
+        const direction = Math.sign(e.deltaY);
+        if (direction > 0) scrollToSection(currentSection.current + 1);
+        else if (direction < 0) scrollToSection(currentSection.current - 1);
+      };
+
+      const handleKeyDown = (e) => {
+        if (isAnimating.current) return;
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') {
           e.preventDefault();
-          if (isAnimating.current) return;
+          scrollToSection(currentSection.current + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+          e.preventDefault();
+          scrollToSection(currentSection.current - 1);
+        }
+      };
 
-          const now = Date.now();
-          if (now - lastWheelTime.current < 50) return;
-          lastWheelTime.current = now;
+      window.addEventListener('wheel', handleWheel, { passive: false });
+      window.addEventListener('keydown', handleKeyDown);
 
-          const direction = Math.sign(e.deltaY);
-          if (direction > 0) scrollToSection(currentSection.current + 1);
-          else if (direction < 0) scrollToSection(currentSection.current - 1);
-        };
-
-        const handleKeyDown = (e) => {
-          if (isAnimating.current) return;
-          if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-            e.preventDefault();
-            scrollToSection(currentSection.current + 1);
-          } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-            e.preventDefault();
-            scrollToSection(currentSection.current - 1);
-          }
-        };
-
-        window.addEventListener('wheel', handleWheel, { passive: false });
-        window.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-          lenis.destroy();
-          window.removeEventListener('wheel', handleWheel);
-          window.removeEventListener('keydown', handleKeyDown);
-          scrollToRef.current = null;
-        };
+      return () => {
+        lenis.destroy();
+        window.removeEventListener('wheel', handleWheel);
+        window.removeEventListener('keydown', handleKeyDown);
+        scrollToRef.current = null;
+      };
     } else {
-        // Mobile: Just cleanup Lenis
-        return () => {
-            lenis.destroy();
-            scrollToRef.current = null;
-        };
+      // Mobile: Just cleanup Lenis
+      return () => {
+        lenis.destroy();
+        scrollToRef.current = null;
+      };
     }
   }, [isMobile]); // Re-run if isMobile changes
 
   // Effect to handle prop-based navigation
   useEffect(() => {
     if (targetSection !== null && targetSection !== undefined && scrollToRef.current) {
-       scrollToRef.current(targetSection);
+      scrollToRef.current(targetSection);
     }
   }, [targetSection]);
-  
+
   return null;
 };
 
