@@ -12,7 +12,7 @@ const FloatingLeaves = () => {
 
   const leafRefs = useRef([]);
   const requestRef = useRef();
-  
+
   // Physics state refs (mutable)
   const stateRef = useRef({
     scrollY: 0,
@@ -44,7 +44,7 @@ const FloatingLeaves = () => {
 
     const animate = () => {
       const state = stateRef.current;
-      
+
       // Update Physics (Lerp for smoothness)
       // High factor = fast response, Low factor = heavy/smooth feel
       state.scrollY = lerp(state.scrollY, state.targetScrollY, 0.05);
@@ -68,7 +68,7 @@ const FloatingLeaves = () => {
 
         // 3. Ambient Floating (Sine Wave)
         // Add random phase offset so they don't bob in sync (index * 1.5)
-        const floatY = Math.sin(state.time + index * 1.5) * 15; 
+        const floatY = Math.sin(state.time + index * 1.5) * 15;
         const floatRotate = Math.sin(state.time * 0.5 + index) * 5;
 
         // 4. Continuous Rotation
@@ -102,7 +102,7 @@ const FloatingLeaves = () => {
     width: '100%',
     height: '100%',
     pointerEvents: 'none',
-    zIndex: 1, // lowered to background
+    zIndex: 0, // Lowered behind images
     overflow: 'hidden',
   };
 

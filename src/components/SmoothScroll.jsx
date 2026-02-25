@@ -8,7 +8,7 @@ const SmoothScroll = ({ onSectionChange, targetSection, isMobile }) => {
   const lastWheelTime = useRef(0);
   const scrollToRef = useRef(null);
 
-  const TOTAL_SECTIONS = 5;
+  const TOTAL_SECTIONS = 6;
 
   useEffect(() => {
     // 1. Initialize Lenis (Keep standard behavior)
@@ -20,6 +20,7 @@ const SmoothScroll = ({ onSectionChange, targetSection, isMobile }) => {
       smoothTouch: false,
     });
     lenisRef.current = lenis;
+    window.lenis = lenis; // Expose globally to stop/start from other components
 
     const raf = (time) => {
       lenis.raf(time);
@@ -32,19 +33,38 @@ const SmoothScroll = ({ onSectionChange, targetSection, isMobile }) => {
       // Handle ID/Selector string
       if (typeof target === 'string') {
         isAnimating.current = true;
+
+        // Convert string target to index to update activeSection state
+        const sectionMap = {
+          'top': 0,
+          '#about': 1,
+          '#services': 2,
+          '#gallery': 3,
+          '#quote': 4,
+          '#contact': 5
+        };
+
+        if (sectionMap[target] !== undefined) {
+          const newIndex = sectionMap[target];
+          currentSection.current = newIndex;
+          if (onSectionChange) onSectionChange(newIndex);
+        }
+
+        const HEADER_OFFSET = isMobile ? -60 : -80;
+
         if (target === 'top') {
           lenis.scrollTo(0, {
             lock: true,
             duration: 1.2,
-            onComplete: () => isAnimating.current = false
+            onComplete: () => { isAnimating.current = false; }
           });
         } else {
           lenis.scrollTo(target, { // e.g. '#about'
-            offset: 0,
+            offset: HEADER_OFFSET, // Offset for the fixed header
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             lock: true,
-            onComplete: () => isAnimating.current = false
+            onComplete: () => { isAnimating.current = false; }
           });
         }
         return;

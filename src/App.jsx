@@ -7,6 +7,7 @@ import FloatingLeaves from './components/FloatingLeaves';
 import SmoothScroll from './components/SmoothScroll';
 import SocialSidebar from './components/SocialSidebar';
 import ServicesSection from './components/ServicesSection';
+import GallerySection from './components/GallerySection';
 import QuoteCalculator from './components/QuoteCalculator';
 import FooterSection from './components/FooterSection';
 
@@ -25,22 +26,24 @@ function App() {
     setTargetSection(index);
   };
 
-  // DESKTOP: 0:Home, 1:About, 2:Services, 3:Quote, 4:Footer
+  // DESKTOP: 0:Home, 1:About, 2:Services, 3:Gallery, 4:Quote, 5:Footer
   const desktopColors = [
     'var(--color-green-title)',
     'var(--color-green-dark)',
     'var(--color-green-light)',
-    'var(--color-beige)',       // 3: Quote - BEIGE per user request
-    '#0e0e0e',                  // 4: Footer 
+    'var(--color-green-dark)',  // 3: Gallery
+    'var(--color-beige)',       // 4: Quote - BEIGE per user request
+    '#0e0e0e',                  // 5: Footer 
   ];
 
-  // MOBILE: 0:Home, 1:About, 2:Services, 3:Quote, 4:Footer
+  // MOBILE: 0:Home, 1:About, 2:Services, 3:Gallery, 4:Quote, 5:Footer
   const mobileColors = [
     'var(--color-green-title)',
     'var(--color-green-dark)',
     'var(--color-green-light)',
-    'var(--color-beige)',       // 3: Quote - BEIGE per user request
-    '#0e0e0e',                  // 4: Footer
+    'var(--color-green-dark)',  // 3: Gallery
+    'var(--color-beige)',       // 4: Quote - BEIGE per user request
+    '#0e0e0e',                  // 5: Footer
   ];
 
   const brandColors = isMobile ? mobileColors : desktopColors;
@@ -60,7 +63,7 @@ function App() {
       <SocialSidebar activeSection={activeSection} />
 
       {/* SECTION 0: HOME */}
-      <Hero />
+      <Hero onNavigate={handleNavigate} />
 
       <main>
         {isMobile ? (
@@ -74,10 +77,11 @@ function App() {
               <strong>Founded in 2009</strong>, we bring <strong>over 15 years of experience</strong> and knowledge in turf and landscaping services.
               
               Our commitment to <strong>quality and customer satisfaction</strong> has allowed us to build <strong>long-lasting relationships</strong> and a strong reputation in the area.`}
-              image="/about-us-bg.jpeg"
+              image="/about-us.jpeg"
               variant="overlay"
             />
             <ServicesSection id="services" />
+            <GallerySection id="gallery" />
             <QuoteCalculator id="quote" />
             <FooterSection id="contact" />
           </>
@@ -92,10 +96,11 @@ function App() {
               <strong>Founded in 2009</strong>, we bring <strong>over 15 years of experience</strong> and knowledge in turf and landscaping services.
               
               Our commitment to <strong>quality and customer satisfaction</strong> has allowed us to build <strong>long-lasting relationships</strong> and a strong reputation in the area.`}
-              image="/about-us-bg.jpeg"
+              image="/about-us.jpeg"
               variant="overlay"
             />
             <ServicesSection id="services" />
+            <GallerySection id="gallery" />
             <QuoteCalculator id="quote" />
             <FooterSection id="contact" />
           </>

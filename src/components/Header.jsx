@@ -39,22 +39,19 @@ const Header = ({ activeSection = 0, onNavigate }) => {
     { name: 'Home', index: 0, target: 'top' },
     { name: 'About Us', index: 1, target: '#about' },
     { name: 'Services', index: 2, target: '#services' },
-    { name: 'Quote', index: 3, target: '#quote' }, // Quote moved up
-    { name: 'Contact', index: 4, target: '#contact' }, // Contact is Footer
+    { name: 'Gallery', index: 3, target: '#gallery' },
+    { name: 'Quote', index: 4, target: '#quote' },
+    { name: 'Contact', index: 5, target: '#contact' },
   ];
 
   // Brand Colors Cycle
-  // 0: Green Title (Standard)
-  // 1: Green Dark (Depth)
-  // 2: Green Light (Vibrancy)
-  // 3: Green Title (Quote)
-  // 4: Black (Footer - Logo likely invert or white)
   const brandColors = [
     'var(--color-green-title)',
     'var(--color-green-dark)',
     'var(--color-green-light)',
-    'var(--color-beige)',       // 3: Quote - BEIGE per user request
-    '#ffffff', // Logo should be white on black footer
+    'var(--color-green-dark)',  // 3: Gallery
+    'var(--color-beige)',       // 4: Quote
+    '#ffffff', // 5: Footer Logo
   ];
 
   const currentLogoColor = brandColors[activeSection] || brandColors[0];
@@ -83,9 +80,9 @@ const Header = ({ activeSection = 0, onNavigate }) => {
     transition: 'background-color 0.8s ease, transform 0.5s ease, opacity 0.5s ease', // Elegant transition + hide animation
     borderBottomLeftRadius: '4px',
     borderBottomRightRadius: '4px',
-    transform: activeSection === 4 ? 'translateY(-100%)' : 'translateY(0)', // Hide on Footer
-    opacity: activeSection === 4 ? 0 : 1,
-    pointerEvents: activeSection === 4 ? 'none' : 'auto',
+    transform: activeSection === 5 ? 'translateY(-100%)' : 'translateY(0)', // Hide on Footer
+    opacity: activeSection === 5 ? 0 : 1,
+    pointerEvents: activeSection === 5 ? 'none' : 'auto',
   };
 
   // Mobile Hamburger Style

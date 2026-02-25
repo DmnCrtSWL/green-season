@@ -3,6 +3,23 @@ import React, { useState, useEffect } from 'react';
 const ImageSlider = ({ images, interval = 4000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const sliderRef = React.useRef(null);
+
+  useEffect(() => {
+    let rafId;
+    const animate = () => {
+      if (sliderRef.current) {
+        const offset = window.scrollY * 0.03;
+        const images = sliderRef.current.querySelectorAll('.slider-bg-image');
+        images.forEach(img => {
+          img.style.transform = `translate3d(${offset}px, 0, 0)`;
+        });
+      }
+      rafId = requestAnimationFrame(animate);
+    };
+    rafId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -27,16 +44,17 @@ const ImageSlider = ({ images, interval = 4000 }) => {
   };
 
   const imageStyle = (index, url) => ({
-    width: '100%',
+    width: '110%',
     height: '100%',
     position: 'absolute',
     top: 0,
-    left: 0,
+    left: '-5%',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%), url("${url}")`,
     opacity: index === currentIndex ? 1 : 0,
     transition: 'opacity 1s ease-in-out',
+    willChange: 'transform',
   });
 
   /* Mobile Text Styling */
@@ -49,13 +67,13 @@ const ImageSlider = ({ images, interval = 4000 }) => {
     gap: '15px',
     zIndex: 2,
     pointerEvents: 'none',
-    transform: 'rotate(-90deg) translateY(100%)', 
+    transform: 'rotate(-90deg) translateY(100%)',
     transformOrigin: 'bottom left',
     whiteSpace: 'nowrap',
   } : {
     position: 'absolute',
-    bottom: '35px', 
-    left: '20px', 
+    bottom: '35px',
+    left: '20px',
     display: 'flex',
     alignItems: 'baseline',
     gap: '15px',
@@ -74,46 +92,46 @@ const ImageSlider = ({ images, interval = 4000 }) => {
   };
 
   const dotStyle = (index) => ({
-    width: '8px', 
+    width: '8px',
     height: '8px',
     borderRadius: '50%',
-    backgroundColor: index === currentIndex ? 'var(--color-green-light)' : 'var(--color-white)', 
+    backgroundColor: index === currentIndex ? 'var(--color-green-light)' : 'var(--color-white)',
     cursor: 'pointer',
     transition: 'background-color 0.3s ease',
     border: 'none',
-    boxShadow: 'none', 
+    boxShadow: 'none',
     padding: 0,
   });
 
   return (
-    <div style={sliderStyle}>
+    <div style={sliderStyle} ref={sliderRef}>
       {images.map((imgData, index) => (
-        <div key={index} style={imageStyle(index, imgData.url)}>
-           <div style={textContainerStyle}>
-             {/* Slide Numbering */}
-             <span style={{
-                color: 'var(--color-white)',
-                fontFamily: 'var(--font-title)',
-                fontSize: isMobile ? '4rem' : '6rem', // Smaller on mobile to fit
-                fontWeight: '900', 
-                fontStyle: 'italic',
-                lineHeight: 0.8,
-             }}>
-                {(index + 1).toString().padStart(2, '0')}
-             </span>
+        <div key={index} className="slider-bg-image" style={imageStyle(index, imgData.url)}>
+          <div style={textContainerStyle}>
+            {/* Slide Numbering */}
+            <span style={{
+              color: 'var(--color-white)',
+              fontFamily: 'var(--font-title)',
+              fontSize: isMobile ? '4rem' : '6rem', // Smaller on mobile to fit
+              fontWeight: '900',
+              fontStyle: 'italic',
+              lineHeight: 0.8,
+            }}>
+              {(index + 1).toString().padStart(2, '0')}
+            </span>
 
-             {/* City Title */}
-             <span style={{
-                color: 'var(--color-green-light)', 
-                fontFamily: 'var(--font-title)',
-                fontSize: isMobile ? '4rem' : '6rem', // Smaller on mobile
-                fontWeight: '900', 
-                fontStyle: 'italic',
-                textTransform: 'uppercase',
-             }}>
-                {imgData.title}
-             </span>
-           </div>
+            {/* City Title */}
+            <span style={{
+              color: 'var(--color-green-light)',
+              fontFamily: 'var(--font-title)',
+              fontSize: isMobile ? '4rem' : '6rem', // Smaller on mobile
+              fontWeight: '900',
+              fontStyle: 'italic',
+              textTransform: 'uppercase',
+            }}>
+              {imgData.title}
+            </span>
+          </div>
         </div>
       ))}
       <div style={dotsContainerStyle}>

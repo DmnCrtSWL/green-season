@@ -2,7 +2,7 @@ import React from "react";
 import ImageSlider from "./ImageSlider";
 import ParallaxText from "./ParallaxText";
 
-const Hero = ({ backgroundColor = "var(--color-white)" }) => {
+const Hero = ({ backgroundColor = "var(--color-white)", onNavigate }) => {
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
 
   React.useEffect(() => {
@@ -64,15 +64,15 @@ const Hero = ({ backgroundColor = "var(--color-white)" }) => {
 
   const sliderImages = [
     {
-      url: "/01.jpeg",
+      url: "/home-1.jpeg",
       title: "",
     },
     {
-      url: "/02.jpeg",
+      url: "/home-2.jpeg",
       title: "",
     },
     {
-      url: "/03.jpeg",
+      url: "/home-3.jpeg",
       title: "",
     },
   ];
@@ -92,7 +92,7 @@ const Hero = ({ backgroundColor = "var(--color-white)" }) => {
             workmanship. Our greatest reward is seeing our clients enjoy a
             flawless, worry-free lawn they can be proud of.
           </p>
-          <button style={buttonStyle} className="hero-button">
+          <button style={buttonStyle} className="hero-button" onClick={() => onNavigate && onNavigate(3)}>
             Get a Quote
           </button>
         </ParallaxText>

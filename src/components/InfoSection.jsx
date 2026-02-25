@@ -4,11 +4,26 @@ import ParallaxText from './ParallaxText';
 const InfoSection = ({ id, title, text, image, reversed, backgroundColor = 'var(--color-white)', variant = 'split' }) => {
   const [isMobile, setIsMobile] = React.useState(false);
 
+  const imgRef = React.useRef(null);
+
   React.useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  React.useEffect(() => {
+    let rafId;
+    const animate = () => {
+      if (imgRef.current) {
+        const offset = window.scrollY * 0.03;
+        imgRef.current.style.transform = `translate3d(${offset}px, 0, 0)`;
+      }
+      rafId = requestAnimationFrame(animate);
+    };
+    rafId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
   // Common Styles
@@ -91,12 +106,13 @@ const InfoSection = ({ id, title, text, image, reversed, backgroundColor = 'var(
 
   // Rest of styles
   const imgStyle = {
-    width: '100%',
+    width: '110%',
     height: '100%',
     objectFit: 'cover',
     position: 'absolute',
     top: 0,
-    left: 0,
+    left: '-5%',
+    willChange: 'transform',
   };
 
   const titleStyle = {
@@ -132,7 +148,7 @@ const InfoSection = ({ id, title, text, image, reversed, backgroundColor = 'var(
         </ParallaxText>
       </div>
       <div style={imageContainerStyle}>
-        <img src={image} alt={title} style={imgStyle} />
+        <img ref={imgRef} src={image} alt={title} style={imgStyle} />
       </div>
     </section>
   );

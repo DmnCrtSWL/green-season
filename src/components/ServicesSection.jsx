@@ -4,7 +4,7 @@ const servicesData = [
   {
     id: 0,
     title: 'Lawn Care',
-    image: '/additional01.jpeg',
+    image: '/service-lawn-care.jpeg',
     description: 'Everything your lawn needs to stay healthy and clean.',
     items: ['Mulching', 'Weeding'],
     icon: (
@@ -19,7 +19,7 @@ const servicesData = [
   {
     id: 1,
     title: 'Landscaping',
-    image: '/additional02.jpeg',
+    image: '/service-landsaping.jpeg',
     description: 'Design, installation and transformation of outdoor spaces.',
     items: ['Sod Installation', 'Artificial Turf Installation', 'Land Leveling and Grading', 'Gardening'],
     icon: (
@@ -34,7 +34,7 @@ const servicesData = [
   {
     id: 2,
     title: 'Hardscape',
-    image: '/additional03.jpeg',
+    image: '/service-hardscaping.jpeg',
     description: 'Durable outdoor structures built to last.',
     items: ['Concrete Installation', 'Brick or Stone Repair', 'Patio Remodel or Addition'],
     icon: (
@@ -48,8 +48,8 @@ const servicesData = [
   {
     id: 3,
     title: 'Seasonal',
-    image: '/additional04.jpeg',
-    description: 'Year-round services for every season.',
+    image: '/service-seasonal.jpeg',
+    description: 'Year-round services for every season. Summer, Fall and Winter decorations and Winter pots.',
     items: ['Pressure Washing', 'Holiday Lighting Installation and Removal', 'Winter Decoration'],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -63,11 +63,27 @@ const ServicesSection = ({ id }) => {
   const [activeServiceId, setActiveServiceId] = useState(0);
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
   const [showModal, setShowModal] = useState(false); // Mobile Modal State
+  const imagesRef = React.useRef([]);
 
   React.useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  React.useEffect(() => {
+    let rafId;
+    const animate = () => {
+      const offset = window.scrollY * 0.03;
+      imagesRef.current.forEach(img => {
+        if (img) {
+          img.style.transform = `translate3d(${offset}px, 0, 0)`;
+        }
+      });
+      rafId = requestAnimationFrame(animate);
+    };
+    rafId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
   const containerStyle = {
@@ -90,7 +106,7 @@ const ServicesSection = ({ id }) => {
     top: 0,
     left: 0,
     backgroundColor: '#000',
-    zIndex: 0,
+    zIndex: 1, // Stay above floating leaves
   };
 
   const menuContainerStyle = {
@@ -127,10 +143,11 @@ const ServicesSection = ({ id }) => {
   };
 
   const imageStyle = {
-    width: '100%',
+    width: '110%',
     height: '100%',
     objectFit: 'cover',
     transition: 'opacity 0.5s ease',
+    willChange: 'transform',
   };
 
   const overlayStyle = {
@@ -350,13 +367,14 @@ const ServicesSection = ({ id }) => {
         {servicesData.map((service) => (
           <img
             key={service.id}
+            ref={el => imagesRef.current[service.id] = el}
             src={service.image}
             alt={service.title}
             style={{
               ...imageStyle,
               position: 'absolute',
               top: 0,
-              left: 0,
+              left: '-5%',
               opacity: service.id === activeServiceId ? 1 : 0,
               zIndex: service.id === activeServiceId ? 1 : 0,
             }}
