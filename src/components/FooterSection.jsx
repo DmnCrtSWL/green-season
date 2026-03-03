@@ -140,16 +140,16 @@ const FooterSection = ({ id }) => {
               <p style={{ marginBottom: '20px' }}>
                 <strong>North Chicagoland's Trusted<br />Turf & Landscaping Experts.</strong>
               </p>
-              <p><strong>Phone:</strong> <br /> +1 (555) 123-4567</p>
-              <p><strong>Email:</strong> <br /> info@greenseason.com</p>
-              <p><strong>Address:</strong> <br /> 123 Green way St.<br />North Chicagoland, IL 60062</p>
+              <p><strong>Phone:</strong> <br /> 1 (847)-505-3058</p>
+              <p><strong>Email:</strong> <br /> Mygreenseasonn@yahoo.com</p>
+              <p><strong>Location:</strong> <br /> Chicago IL</p>
             </div>
 
             {/* Social Links Moved Here */}
             <div>
               <h4 style={{ fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '15px', color: '#888' }}>Social</h4>
               <div style={socialRowStyle}>
-                {['Facebook', 'Twitter', 'Instagram', 'TikTok', 'WhatsApp', 'Email'].map((platform) => (
+                {['Instagram', 'WhatsApp', 'Email'].map((platform) => (
                   <div key={platform} style={socialIconStyle} title={platform}>
                     <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       {platform === 'Facebook' && <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />}

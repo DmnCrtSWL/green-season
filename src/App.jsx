@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import InfoSection from './components/InfoSection';
+import TurfSection from './components/TurfSection';
 import FloatingLeaves from './components/FloatingLeaves';
 import SmoothScroll from './components/SmoothScroll';
 import SocialSidebar from './components/SocialSidebar';
@@ -26,24 +27,26 @@ function App() {
     setTargetSection(index);
   };
 
-  // DESKTOP: 0:Home, 1:About, 2:Services, 3:Gallery, 4:Quote, 5:Footer
+  // DESKTOP: 0:Home, 1:About, 2:Turf, 3:Services, 4:Gallery, 5:Quote, 6:Footer
   const desktopColors = [
-    'var(--color-green-title)',
-    'var(--color-green-dark)',
-    'var(--color-green-light)',
-    'var(--color-green-dark)',  // 3: Gallery
-    'var(--color-beige)',       // 4: Quote - BEIGE per user request
-    '#0e0e0e',                  // 5: Footer 
+    'var(--color-green-title)', // 0: Home
+    'var(--color-green-dark)',  // 1: About
+    'var(--color-green-title)', // 2: Turf (Green theme for logo visibility on white section)
+    'var(--color-green-light)', // 3: Services
+    'var(--color-green-dark)',  // 4: Gallery
+    'var(--color-beige)',       // 5: Quote - BEIGE per user request
+    '#0e0e0e',                  // 6: Footer 
   ];
 
-  // MOBILE: 0:Home, 1:About, 2:Services, 3:Gallery, 4:Quote, 5:Footer
+  // MOBILE: 0:Home, 1:About, 2:Turf, 3:Services, 4:Gallery, 5:Quote, 6:Footer
   const mobileColors = [
-    'var(--color-green-title)',
-    'var(--color-green-dark)',
-    'var(--color-green-light)',
-    'var(--color-green-dark)',  // 3: Gallery
-    'var(--color-beige)',       // 4: Quote - BEIGE per user request
-    '#0e0e0e',                  // 5: Footer
+    'var(--color-green-title)', // 0: Home
+    'var(--color-green-dark)',  // 1: About
+    'var(--color-green-title)', // 2: Turf (Green theme for logo visibility on white section)
+    'var(--color-green-light)', // 3: Services
+    'var(--color-green-dark)',  // 4: Gallery
+    'var(--color-beige)',       // 5: Quote - BEIGE per user request
+    '#0e0e0e',                  // 6: Footer
   ];
 
   const brandColors = isMobile ? mobileColors : desktopColors;
@@ -80,6 +83,7 @@ function App() {
               image="/about-us.jpeg"
               variant="overlay"
             />
+            <TurfSection id="turf" />
             <ServicesSection id="services" />
             <GallerySection id="gallery" />
             <QuoteCalculator id="quote" />
@@ -99,6 +103,7 @@ function App() {
               image="/about-us.jpeg"
               variant="overlay"
             />
+            <TurfSection id="turf" />
             <ServicesSection id="services" />
             <GallerySection id="gallery" />
             <QuoteCalculator id="quote" />

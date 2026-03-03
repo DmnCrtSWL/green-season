@@ -65,7 +65,7 @@ const SocialSidebar = ({ activeSection = 0 }) => {
       const sidebarWidth = 60;
       const margin = 32;
 
-      const targetX = (activeSection === 2)
+      const targetX = (activeSection === 3)
         ? margin // LEFT
         : (window.innerWidth - sidebarWidth - margin); // RIGHT
 
@@ -96,12 +96,15 @@ const SocialSidebar = ({ activeSection = 0 }) => {
   }, [isMobile, activeSection]); // Re-run/update target when activeSection changes
 
   // Brand Colors Cycle
+  // 0:Home, 1:About, 2:Turf, 3:Services, 4:Gallery, 5:Quote, 6:Footer
   const brandColors = [
-    'var(--color-green-title)',
-    'var(--color-green-dark)',
-    'var(--color-green-light)',
-    'var(--color-beige)',
-    'var(--color-green-title)',
+    'var(--color-green-title)', // 0: Home
+    'var(--color-green-dark)',  // 1: About
+    'var(--color-green-title)', // 2: Turf
+    'var(--color-green-title)', // 3: Services
+    'var(--color-green-dark)',  // 4: Gallery
+    'var(--color-beige)',       // 5: Quote
+    '#ffffff'                   // 6: Footer
   ];
 
   const currentBgColor = brandColors[activeSection] || brandColors[0];
@@ -112,7 +115,7 @@ const SocialSidebar = ({ activeSection = 0 }) => {
     left: 0,
     width: '100%',
     // height: '60px', // Optional fixed height or let padding define it
-    display: activeSection === 4 ? 'none' : 'flex', // Hide on Footer
+    display: activeSection === 6 ? 'none' : 'flex', // Hide on Footer
     flexDirection: 'row',
     justifyContent: 'center', // Center icons
     alignItems: 'center',
@@ -142,8 +145,8 @@ const SocialSidebar = ({ activeSection = 0 }) => {
     boxShadow: '0 4px 15px rgba(0,0,0,0.15)',
     transition: 'background-color 0.5s ease, opacity 0.5s ease',
     willChange: 'transform',
-    opacity: activeSection === 4 ? 0 : 1, // Hide on Footer
-    pointerEvents: activeSection === 4 ? 'none' : 'auto', // Disable interaction
+    opacity: activeSection === 6 ? 0 : 1, // Hide on Footer
+    pointerEvents: activeSection === 6 ? 'none' : 'auto', // Disable interaction
   };
 
   const linkStyle = {
@@ -178,31 +181,11 @@ const SocialSidebar = ({ activeSection = 0 }) => {
 
   return (
     <div style={sidebarStyle} ref={sidebarRef}>
-      <a href="#" style={linkStyle} title="Facebook">
-        {/* Outlined FB equivalent or just clean F */}
-        <svg viewBox="0 0 24 24" style={iconStyle} fill="none" stroke="currentColor">
-          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-        </svg>
-      </a>
-
-      <a href="#" style={linkStyle} title="Twitter">
-        {/* Twitter/X is usually solid. I'll use stroke for outline effect */}
-        <svg viewBox="0 0 24 24" style={iconStyle}>
-          <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-        </svg>
-      </a>
-
       <a href="#" style={linkStyle} title="Instagram">
         <svg viewBox="0 0 24 24" style={iconStyle}>
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
           <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
           <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-        </svg>
-      </a>
-
-      <a href="#" style={linkStyle} title="TikTok">
-        <svg viewBox="0 0 24 24" style={iconStyle}>
-          <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
         </svg>
       </a>
 

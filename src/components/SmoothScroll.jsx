@@ -8,7 +8,7 @@ const SmoothScroll = ({ onSectionChange, targetSection, isMobile }) => {
   const lastWheelTime = useRef(0);
   const scrollToRef = useRef(null);
 
-  const TOTAL_SECTIONS = 6;
+  const TOTAL_SECTIONS = 7;
 
   useEffect(() => {
     // 1. Initialize Lenis (Keep standard behavior)
@@ -38,10 +38,11 @@ const SmoothScroll = ({ onSectionChange, targetSection, isMobile }) => {
         const sectionMap = {
           'top': 0,
           '#about': 1,
-          '#services': 2,
-          '#gallery': 3,
-          '#quote': 4,
-          '#contact': 5
+          '#turf': 2,
+          '#services': 3,
+          '#gallery': 4,
+          '#quote': 5,
+          '#contact': 6
         };
 
         if (sectionMap[target] !== undefined) {
