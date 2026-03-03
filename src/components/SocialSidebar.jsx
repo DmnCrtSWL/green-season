@@ -96,15 +96,14 @@ const SocialSidebar = ({ activeSection = 0 }) => {
   }, [isMobile, activeSection]); // Re-run/update target when activeSection changes
 
   // Brand Colors Cycle
-  // 0:Home, 1:About, 2:Turf, 3:Services, 4:Gallery, 5:Quote, 6:Footer
+  // 0:Home, 1:About, 2:Turf, 3:Services, 4:Quote, 5:Footer
   const brandColors = [
     'var(--color-green-title)', // 0: Home
     'var(--color-green-dark)',  // 1: About
     'var(--color-green-title)', // 2: Turf
     'var(--color-green-title)', // 3: Services
-    'var(--color-green-dark)',  // 4: Gallery
-    'var(--color-beige)',       // 5: Quote
-    '#ffffff'                   // 6: Footer
+    'var(--color-beige)',       // 4: Quote
+    '#ffffff'                   // 5: Footer
   ];
 
   const currentBgColor = brandColors[activeSection] || brandColors[0];
@@ -115,7 +114,7 @@ const SocialSidebar = ({ activeSection = 0 }) => {
     left: 0,
     width: '100%',
     // height: '60px', // Optional fixed height or let padding define it
-    display: activeSection === 6 ? 'none' : 'flex', // Hide on Footer
+    display: activeSection === 5 ? 'none' : 'flex', // Hide on Footer
     flexDirection: 'row',
     justifyContent: 'center', // Center icons
     alignItems: 'center',
@@ -145,8 +144,8 @@ const SocialSidebar = ({ activeSection = 0 }) => {
     boxShadow: '0 4px 15px rgba(0,0,0,0.15)',
     transition: 'background-color 0.5s ease, opacity 0.5s ease',
     willChange: 'transform',
-    opacity: activeSection === 6 ? 0 : 1, // Hide on Footer
-    pointerEvents: activeSection === 6 ? 'none' : 'auto', // Disable interaction
+    opacity: activeSection === 5 ? 0 : 1, // Hide on Footer
+    pointerEvents: activeSection === 5 ? 'none' : 'auto', // Disable interaction
   };
 
   const linkStyle = {

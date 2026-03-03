@@ -1,16 +1,15 @@
-import React from 'react';
-import { useState } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import InfoSection from './components/InfoSection';
-import TurfSection from './components/TurfSection';
-import FloatingLeaves from './components/FloatingLeaves';
-import SmoothScroll from './components/SmoothScroll';
-import SocialSidebar from './components/SocialSidebar';
-import ServicesSection from './components/ServicesSection';
-import GallerySection from './components/GallerySection';
-import QuoteCalculator from './components/QuoteCalculator';
-import FooterSection from './components/FooterSection';
+import React from "react";
+import { useState } from "react";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import InfoSection from "./components/InfoSection";
+import TurfSection from "./components/TurfSection";
+import FloatingLeaves from "./components/FloatingLeaves";
+import SmoothScroll from "./components/SmoothScroll";
+import SocialSidebar from "./components/SocialSidebar";
+import ServicesSection from "./components/ServicesSection";
+import QuoteCalculator from "./components/QuoteCalculator";
+import FooterSection from "./components/FooterSection";
 
 function App() {
   const [activeSection, setActiveSection] = useState(0);
@@ -19,50 +18,45 @@ function App() {
 
   React.useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleNavigate = (index) => {
     setTargetSection(index);
   };
 
-  // DESKTOP: 0:Home, 1:About, 2:Turf, 3:Services, 4:Gallery, 5:Quote, 6:Footer
+  // DESKTOP: 0:Home, 1:About, 2:Turf, 3:Services, 4:Quote, 5:Footer
   const desktopColors = [
-    'var(--color-green-title)', // 0: Home
-    'var(--color-green-dark)',  // 1: About
-    'var(--color-green-title)', // 2: Turf (Green theme for logo visibility on white section)
-    'var(--color-green-light)', // 3: Services
-    'var(--color-green-dark)',  // 4: Gallery
-    'var(--color-beige)',       // 5: Quote - BEIGE per user request
-    '#0e0e0e',                  // 6: Footer 
+    "var(--color-green-title)", // 0: Home
+    "var(--color-green-dark)", // 1: About
+    "var(--color-green-title)", // 2: Turf (Green theme for logo visibility on white section)
+    "var(--color-green-light)", // 3: Services
+    "var(--color-beige)", // 4: Quote - BEIGE per user request
+    "#0e0e0e", // 5: Footer
   ];
 
-  // MOBILE: 0:Home, 1:About, 2:Turf, 3:Services, 4:Gallery, 5:Quote, 6:Footer
+  // MOBILE: 0:Home, 1:About, 2:Turf, 3:Services, 4:Quote, 5:Footer
   const mobileColors = [
-    'var(--color-green-title)', // 0: Home
-    'var(--color-green-dark)',  // 1: About
-    'var(--color-green-title)', // 2: Turf (Green theme for logo visibility on white section)
-    'var(--color-green-light)', // 3: Services
-    'var(--color-green-dark)',  // 4: Gallery
-    'var(--color-beige)',       // 5: Quote - BEIGE per user request
-    '#0e0e0e',                  // 6: Footer
+    "var(--color-green-title)", // 0: Home
+    "var(--color-green-dark)", // 1: About
+    "var(--color-green-title)", // 2: Turf (Green theme for logo visibility on white section)
+    "var(--color-green-light)", // 3: Services
+    "var(--color-beige)", // 4: Quote - BEIGE per user request
+    "#0e0e0e", // 5: Footer
   ];
 
   const brandColors = isMobile ? mobileColors : desktopColors;
   const currentThemeColor = brandColors[activeSection] || brandColors[0];
 
   return (
-    <div style={{ '--dynamic-theme-color': currentThemeColor }}>
+    <div style={{ "--dynamic-theme-color": currentThemeColor }}>
       <SmoothScroll
         onSectionChange={setActiveSection}
         targetSection={targetSection}
         isMobile={isMobile}
       />
-      <Header
-        activeSection={activeSection}
-        onNavigate={handleNavigate}
-      />
+      <Header activeSection={activeSection} onNavigate={handleNavigate} />
       <SocialSidebar activeSection={activeSection} />
 
       {/* SECTION 0: HOME */}
@@ -85,7 +79,6 @@ function App() {
             />
             <TurfSection id="turf" />
             <ServicesSection id="services" />
-            <GallerySection id="gallery" />
             <QuoteCalculator id="quote" />
             <FooterSection id="contact" />
           </>
@@ -105,7 +98,6 @@ function App() {
             />
             <TurfSection id="turf" />
             <ServicesSection id="services" />
-            <GallerySection id="gallery" />
             <QuoteCalculator id="quote" />
             <FooterSection id="contact" />
           </>
